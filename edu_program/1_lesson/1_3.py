@@ -3,6 +3,8 @@ import tkinter as tk
 
 from PIL import ImageTk, Image
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 def like():
     global total_likes, current_image_index
@@ -21,11 +23,11 @@ def dislike():
 
 
 def update_likes():
-    likes_label.config(text="Likes: {}".format(total_likes))
+    likes_label.config(text=f'Likes: {total_likes}')
 
 
 def update_dislikes():
-    dislikes_label.config(text="Dislikes: {}".format(total_dislikes))
+    dislikes_label.config(text=f'Dislikes: {total_dislikes}')
 
 
 def remove_background(image):
@@ -48,7 +50,8 @@ total_likes = 0
 total_dislikes = 0
 current_image_index = 0
 
-image_directory = "images"
+image_directory = os.path.join(BASE_DIR, 'images')
+
 image_filenames = sorted(os.listdir(image_directory))
 
 root = tk.Tk()
@@ -65,8 +68,8 @@ image_label = tk.Label(root, image=photo)
 image_label.pack(pady=10)
 
 # Загрузка изображений для лайка и дизлайка с альфа-каналом
-like_image = Image.open("like.png").convert("RGBA")
-dislike_image = Image.open("dislike.png").convert("RGBA")
+like_image = Image.open(os.path.join(BASE_DIR, 'like.png')).convert("RGBA")
+dislike_image = Image.open(os.path.join(BASE_DIR, 'dislike.png')).convert("RGBA")
 
 # Удаление фона кнопок
 like_image = remove_background(like_image)
